@@ -1,6 +1,6 @@
 {
-  "name": "Sorion",
-  "version": "2.0",
+  "name": "Upgrade EcoleDirecte",
+  "version": "1.0",
   "manifest_version": 2,
   "content_scripts": [
     {
@@ -9,14 +9,13 @@
     }
   ],
   "browser_action": {
-    "default_title": "Sorion"
+    "default_title": "Upgrade EcoleDirecte"
   },
   "background": {
     "scripts": ["background.js"]
   },
   "permissions": ["tabs"],
   "icons": {
-    "128": "img/logo.png"
+    "128": "img/upgrade_ecole_directe.PNG"
   }
 }
-word
