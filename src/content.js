@@ -4,9 +4,13 @@ function moyenne(elem, num) {
 
   document.querySelectorAll(elem).forEach((ele, index) => {
     if (!ele.innerHTML) return;
-    if (num && num !== index % 3) return;
-    num_note++;
-    note += parseFloat(ele.innerHTML.split(",").join("."));
+    
+    num_note += Number(ele.parentNode.parentNode.childNodes[3].childNodes[1].innerHTML)
+    console.log(ele.parentNode.parentNode.childNodes[3].childNodes[1].innerHTML)
+    
+    for(let i = 0; i < Number(ele.parentNode.parentNode.childNodes[3].childNodes[1].innerHTML); i++) {
+      note += parseFloat(ele.innerHTML.split(",").join("."));
+    }
   });
 
   return (note / num_note)
@@ -23,19 +27,10 @@ chrome.runtime.onMessage.addListener((request) => {
     return alert("Can't be used on that webpage :/");
   }
 
-  let btn_moy = document.getElementById("btn-encart-moyennes");
-  if (!btn_moy) return;
+  let btn_note = document.getElementById("btn-encart-notes");
+  if (!btn_note || !btn_note.classList.contains("active")) return alert('You have to be in the "Notes" tab in the "Evaluations" table');
 
-  if (!document.querySelector("#periode0")) return;
-
-  if (!btn_moy.classList.contains("active")) {
-    btn_moy.click();
-  }
-
-  var moy_el = moyenne("td.moyenneeleve span"),
-    moy_cl = moyenne("td.moyenneclasse span", 0),
-    min_cl = moyenne("td.moyenneclasse span", 1),
-    max_cl = moyenne("td.moyenneclasse span", 2);
+  var moy_el = moyenne("td.relevemoyenne span");
 
   if (document.querySelector("#added-line")) {
     document.querySelector("#added-line").remove();
@@ -43,5 +38,5 @@ chrome.runtime.onMessage.addListener((request) => {
 
   document.querySelector(
     "tbody"
-  ).innerHTML += `<tr id="added-line" class="lignemoyenne" style="background-color: #2095F3;color: white;"><td class="discipline"><b>GENERAL</b></td><td class="coef"></td><td class="moyenneeleve">${moy_el}</td><td class="moyenneclasse">${moy_cl}</td><td class="moyenneclasse" >${min_cl}</td><td class="moyenneclasse" ng-if="parametrage.moyenneMax">${max_cl}</td></tr>`;
+  ).innerHTML += `<tr id="added-line" class="lignemoyenne" style="background-color: #2095F3;color: white;"><td class="discipline"><b>GENERAL</b></td><td class="coef"></td><td class="moyenneeleve">${moy_el}</td><td class="notes"></td><td class="graph text-center"></td></tr>`;
 });
