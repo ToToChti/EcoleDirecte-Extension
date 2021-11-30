@@ -20,6 +20,12 @@ function moyenne(elem, num) {
     .join(",");
 }
 
+document.querySelector('.footer.hidden-print ul').innerHTML += '<li class="hidden-xs" id="use-coef-bac"><a href="">Utiliser les coefficients du baccalauréat général</a></li>'
+
+document.querySelector('#use-coef-bac').onclick = function() {
+  alert('Peut etre bientot')
+}
+
 chrome.runtime.onMessage.addListener((request) => {
   var regex = /https:\/\/www.ecoledirecte.com\/Eleves\/\d+\/Notes/i;
   var isRightPage = regex.test(window.location.href);
